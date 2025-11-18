@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DataModeler Upload</title>
+  </head>
+  <body>
+    <h2>Upload CSV/JSON files to generate Data Model</h2>
+    <input id="files" type="file" multiple />
+    <br/>
+    <label>API Key (optional): <input id="apikey" type="text"/></label>
+    <br/>
+    <button id="upload">Upload</button>
+    <pre id="status"></pre>
+
+    <script>
+      document.getElementById('upload').addEventListener('click', async () => {
+        const files = document.getElementById('files').files;
+        const api = document.getElementById('apikey').value;
+        if (!files.length) { alert('Choose files'); return; }
+        const fd = new FormData();
+        for (const f of files) fd.append('files', f, f.name);
+
+        const headers = api ? { 'x-api-key': api } : {};
+        document.getElementById('status').textContent = 'Uploading...';
+        const resp = await fetch('/generate', { method: 'POST', body: fd, headers });
+        if (!resp.ok) {
+          document.getElementById('status').textContent = 'Error: ' + resp.status + '\n' + await resp.text();
+          return;
+        }
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'datamodel_outputs.zip';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        document.getElementById('status').textContent = 'Saved datamodel_outputs.zip';
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+product_id,sku,name,category,price
+10,SKU-001,Red T-Shirt,apparel,19.99
+11,SKU-002,Blue Jeans,apparel,49.99
+12,SKU-003,Water Bottle,home,9.99

@@ -1,0 +1,5 @@
+[
+  {"product_id": 10, "sku": "SKU-001", "attributes": {"color": "red", "size": "M"}},
+  {"product_id": 11, "sku": "SKU-002", "attributes": {"color": "blue", "size": "L"}},
+  {"product_id": 12, "sku": "SKU-003", "attributes": {"capacity": "750ml"}}
+]
