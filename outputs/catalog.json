@@ -1,0 +1,183 @@
+{
+  "tables": {
+    "customers": {
+      "rows": 3,
+      "columns": [
+        {
+          "name": "customer_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "first_name",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=object)."
+        },
+        {
+          "name": "last_name",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=object)."
+        },
+        {
+          "name": "email",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=object)."
+        },
+        {
+          "name": "signup_date",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Timestamp-like column (dtype=object)."
+        }
+      ]
+    },
+    "orders": {
+      "rows": 3,
+      "columns": [
+        {
+          "name": "order_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "customer_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 2,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "order_date",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Timestamp-like column (dtype=object)."
+        },
+        {
+          "name": "total",
+          "dtype": "float64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=float64)."
+        }
+      ]
+    },
+    "order_items": {
+      "rows": 4,
+      "columns": [
+        {
+          "name": "order_item_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 4,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "order_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "product_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "quantity",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 1,
+          "description": "Categorical column with 1 unique values (dtype=int64)."
+        },
+        {
+          "name": "unit_price",
+          "dtype": "float64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=float64)."
+        }
+      ]
+    },
+    "products": {
+      "rows": 3,
+      "columns": [
+        {
+          "name": "product_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "sku",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=object)."
+        },
+        {
+          "name": "name",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=object)."
+        },
+        {
+          "name": "category",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 2,
+          "description": "Categorical column with 2 unique values (dtype=object)."
+        },
+        {
+          "name": "price",
+          "dtype": "float64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=float64)."
+        }
+      ]
+    },
+    "product_catalog": {
+      "rows": 3,
+      "columns": [
+        {
+          "name": "product_id",
+          "dtype": "int64",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Identifier column; likely references another table (dtype=int64)."
+        },
+        {
+          "name": "sku",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Categorical column with 3 unique values (dtype=object)."
+        },
+        {
+          "name": "attributes",
+          "dtype": "object",
+          "nnulls": 0,
+          "nunique": 3,
+          "description": "Column 'attributes' of type object; sampled values: [\"{'color': 'red', 'size': 'M'}\", \"{'color': 'blue', 'size': 'L'}\", \"{'capacity': '750ml'}\"]"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+digraph erd {
+	rankdir=LR
+	customers [label=<<<b>customers</b>
+<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+<TR><TD ALIGN='LEFT'>customer_id (PK): int64</TD></TR>
+<TR><TD ALIGN='LEFT'>first_name: object</TD></TR>
+<TR><TD ALIGN='LEFT'>last_name: object</TD></TR>
+<TR><TD ALIGN='LEFT'>email: object</TD></TR>
+<TR><TD ALIGN='LEFT'>signup_date: object</TD></TR>
+</TABLE>>> shape=plain]
+	orders [label=<<<b>orders</b>
+<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+<TR><TD ALIGN='LEFT'>order_id (PK): int64</TD></TR>
+<TR><TD ALIGN='LEFT'>customer_id: int64</TD></TR>
+<TR><TD ALIGN='LEFT'>order_date: object</TD></TR>
+<TR><TD ALIGN='LEFT'>total: float64</TD></TR>
+</TABLE>>> shape=plain]
+	order_items [label=<<<b>order_items</b>
+<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+<TR><TD ALIGN='LEFT'>order_item_id (PK): int64</TD></TR>
+<TR><TD ALIGN='LEFT'>order_id: int64</TD></TR>
+<TR><TD ALIGN='LEFT'>product_id: int64</TD></TR>
+<TR><TD ALIGN='LEFT'>quantity: int64</TD></TR>
+<TR><TD ALIGN='LEFT'>unit_price: float64</TD></TR>
+</TABLE>>> shape=plain]
+	products [label=<<<b>products</b>
+<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+<TR><TD ALIGN='LEFT'>product_id (PK): int64</TD></TR>
+<TR><TD ALIGN='LEFT'>sku: object</TD></TR>
+<TR><TD ALIGN='LEFT'>name: object</TD></TR>
+<TR><TD ALIGN='LEFT'>category: object</TD></TR>
+<TR><TD ALIGN='LEFT'>price: float64</TD></TR>
+</TABLE>>> shape=plain]
+	product_catalog [label=<<<b>product_catalog</b>
+<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+<TR><TD ALIGN='LEFT'>product_id (PK): int64</TD></TR>
+<TR><TD ALIGN='LEFT'>sku: object</TD></TR>
+<TR><TD ALIGN='LEFT'>attributes: object</TD></TR>
+</TABLE>>> shape=plain]
+	customers -> orders [label="customer_id -> customer_id"]
+	orders -> order_items [label="order_id -> order_id"]
+	orders -> customers [label="customer_id -> customer_id"]
+	orders -> order_items [label="total -> unit_price"]
+	orders -> products [label="total -> price"]
+	order_items -> orders [label="order_id -> order_id"]
+	order_items -> products [label="product_id -> product_id"]
+	order_items -> product_catalog [label="product_id -> product_id"]
+	order_items -> customers [label="quantity -> customer_id"]
+	order_items -> orders [label="quantity -> customer_id"]
+	order_items -> orders [label="unit_price -> total"]
+	order_items -> products [label="unit_price -> price"]
+	products -> order_items [label="product_id -> product_id"]
+	products -> product_catalog [label="product_id -> product_id"]
+	products -> product_catalog [label="sku -> sku"]
+	products -> orders [label="price -> total"]
+	products -> order_items [label="price -> unit_price"]
+	product_catalog -> order_items [label="product_id -> product_id"]
+	product_catalog -> products [label="product_id -> product_id"]
+	product_catalog -> products [label="sku -> sku"]
+}
