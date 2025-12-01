@@ -17,6 +17,7 @@ from fastapi.staticfiles import StaticFiles
 
 from datamodeler import core
 from datamodeler import erd as erd_module
+from datamodeler.langgraph_integration import run_datamodel_pipeline
 
 app = FastAPI(title="DataModeler MCP Scaffold")
 
@@ -56,31 +57,16 @@ async def generate_model(files: List[UploadFile] = File(...), _auth: None = Depe
             out.write(content)
         saved_paths.append(fname)
 
-    # load all inputs from tmpdir
-    tables = core.load_all_inputs(tmpdir)
-    profile = core.profile_tables(tables)
-    pks = core.detect_primary_keys(tables)
-    fks = core.detect_foreign_keys(tables)
-    sql = core.build_sql(tables, pks, fks)
-    catalog = core.build_catalog(profile)
-
-    # try to generate ERD into tmpdir/erd
-    try:
-        # prepare a tables summary for ERD
-        tables_summary = {}
-        for t, meta in profile.items():
-            cols = []
-            for c in meta["columns"]:
-                cols.append({"name": c["name"], "type": c["dtype"], "pk": (pks.get(t) == c["name"])})
-            tables_summary[t] = cols
-
-        erd_base = os.path.join(tmpdir, "erd")
-        erd_module.generate_erd(tables_summary, fks, erd_base)
-        erd_svg = erd_base + ".svg"
-        erd_gv = erd_base + ".gv"
-    except Exception:
-        erd_svg = None
-        erd_gv = None
+    # Run the LangGraph pipeline
+    result = run_datamodel_pipeline(tmpdir, tmpdir)
+    
+    if result.get("error"):
+        raise HTTPException(status_code=500, detail=f"Pipeline failed: {result['error']}")
+    
+    sql = result["sql"]
+    catalog = result["catalog"]
+    erd_svg = result.get("erd_svg")
+    erd_gv = result.get("erd_gv")
 
     # package outputs into a zip in-memory
     mem = io.BytesIO()
